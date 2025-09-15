@@ -1,0 +1,20 @@
+{
+  "name": "dev-tinder",
+  "version": "1.0.0",
+  "description": "Tinder like application for developers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "nodeJS",
+    "Javascript"
+  ],
+  "author": "Venkata Dinesh Posa",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
