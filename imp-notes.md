@@ -9,6 +9,18 @@
 - written the request handlers for "/test", "/hello", "/" using app.use() function
 - Installed nodemon and updated scripts inside package.json. nodemon helps in restarting the server after saving the new changes
 
+16-09-2025:
+
+- difference between package.json and package-lock.json
+- play with routes and route extensions
+- install postman app and make workspace/collection > test API call
+- write a logic to handle GET, POST, PATCH, DELETE, PUT API calls and test them on postman
+- explore different routing - use of ?, +, (), * in the routes
+- use of regex in routes /a/, /.*fly$/
+- reading query params in the routes
+- reading the dynamic routes
+
+
 
 Information gathered:
 
