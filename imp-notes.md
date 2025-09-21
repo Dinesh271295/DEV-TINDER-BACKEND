@@ -44,3 +44,31 @@
 - create /signup API to add data to database
 - push some documents using API calls from postman
 - read about _id and __v created by mongoDB when we add any document
+
+20-09-2025:
+
+- JS object vs JSON (difference)
+- Add the express.json middleware to your app
+- Make your signup API dynamic to receive data from the end user
+- User.findOne with duplicate email ids, which object returned.
+- API - Get user by email
+- API - Get all the users from database - GET/feed
+- API - Get user by ID
+- create a delete user API
+- difference between PATCH and PUT http methods
+- create a patch user API to update the existing documents
+- explore mongoose documentation for Model methods.
+- what are options in a Model.findOneAndUpdate method, explore more about it.
+- Create an API which updates the user with emailId.
+
+21-09-2025:
+
+- explore schema type options from the documentation
+- Add required, unique, lowercase, min, minLength, default, trim
+- create a custom validate function for gender
+- improve the db schema - put all the appropriate validations on each fiels in schema.
+- Add API level validation on Patch request & signup post API
+- Add API validations for each fields. -- Data Sanitization
+- Install validator
+- explore Validator functions
+
