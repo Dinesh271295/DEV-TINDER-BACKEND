@@ -1,6 +1,9 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 const { connectDB } = require("./config/database");
 const { User } = require("./models/user");
+
+const { validateSignupData } = require("./utils/validation");
 
 const app = express();
 
@@ -9,11 +12,22 @@ app.use(express.json());
 app.post("/signup", async (req, res) => {
   // add user to database
   try {
-    const user = new User(req.body);
+    //validate the signup data
+    validateSignupData(req.body);
+    //encrypt the password
+    const { firstName, lastName, email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    //save the user to database
+    const user = new User({
+      firstName,
+      lastName,
+      email,
+      password: hashedPassword,
+    });
     await user.save();
     res.status(201).send("User created successfully");
   } catch (err) {
-    res.status(400).send("Error creating user" + err.message);
+    res.status(400).send("Error : " + err.message);
   }
 });
 
@@ -50,18 +64,18 @@ app.patch("/user/:userId", async (req, res) => {
       "password",
       "photourl",
       "userId",
-      "skills"
+      "skills",
     ];
     const isUpdateAllowed = Object.keys(req.body).every((update) =>
       updatesAllowed.includes(update)
     );
-    if(!isUpdateAllowed) {
+    if (!isUpdateAllowed) {
       throw new Error("Invalid updates!");
     }
 
-    if(req.body.skills.length > 10) {
+    if (req.body.skills.length > 10) {
       throw new Error("Exceeding maximum number of skills allowed");
-    } 
+    }
     const userId = req.params.userId;
     const user = await User.findOne({ _id: userId }, null, {
       sort: { _id: -1 },

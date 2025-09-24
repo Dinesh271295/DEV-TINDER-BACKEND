@@ -72,3 +72,11 @@
 - Install validator
 - explore Validator functions
 
+24-09-2025:
+
+- Validate data in SignUp API.
+- Install bcrypt package
+- Create PasswordHash using bcrypt.hash and save the user with encryted password.
+- create login API
+- compare passwords and throw errors if email or password is invalid.
+

@@ -10,6 +10,7 @@ const userSchema = new Schema({
   },
   lastName: {
     type: String,
+    required: true,
     minLength: 4,
     maxLength: 20,
   },
@@ -40,7 +41,6 @@ const userSchema = new Schema({
   },
   age: {
     type: Number,
-    required: true,
     validate: {
       validator: (value) => {
         if (value < 18) {
