@@ -13,7 +13,7 @@ app.post("/signup", async (req, res) => {
     await user.save();
     res.status(201).send("User created successfully");
   } catch (err) {
-    res.status(400).send("Error creating user");
+    res.status(400).send("Error creating user" + err.message);
   }
 });
 
@@ -41,10 +41,29 @@ app.delete("/user", async (req, res) => {
   }
 });
 
-app.patch("/user", async (req, res) => {
+app.patch("/user/:userId", async (req, res) => {
   try {
-    const userEmail = req.body.email;
-    const user = await User.findOne({ email: userEmail }, null, {
+    const updatesAllowed = [
+      "firstName",
+      "lastName",
+      "bio",
+      "password",
+      "photourl",
+      "userId",
+      "skills"
+    ];
+    const isUpdateAllowed = Object.keys(req.body).every((update) =>
+      updatesAllowed.includes(update)
+    );
+    if(!isUpdateAllowed) {
+      throw new Error("Invalid updates!");
+    }
+
+    if(req.body.skills.length > 10) {
+      throw new Error("Exceeding maximum number of skills allowed");
+    } 
+    const userId = req.params.userId;
+    const user = await User.findOne({ _id: userId }, null, {
       sort: { _id: -1 },
     });
     if (user) {
@@ -55,7 +74,7 @@ app.patch("/user", async (req, res) => {
     }
     // await User.findByIdAndUpdate(userId, req.body);
   } catch (err) {
-    res.status(500).send("Error updating user");
+    res.status(500).send("Error updating user" + err.message);
   }
 });
 
