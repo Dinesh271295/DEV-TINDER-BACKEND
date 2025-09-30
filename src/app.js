@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const { connectDB } = require("./config/database");
 const { User } = require("./models/user");
+const validator = require("validator");
 
 const { validateSignupData } = require("./utils/validation");
 
@@ -28,6 +29,40 @@ app.post("/signup", async (req, res) => {
     res.status(201).send("User created successfully");
   } catch (err) {
     res.status(400).send("Error : " + err.message);
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).send("Email and password are required.");
+    }
+
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+
+    if (!validator.isEmail(trimmedEmail)) {
+      return res.status(400).send("Invalid email format.");
+    }
+
+    const user = await User.findOne({ email: trimmedEmail });
+    if (!user) {
+      return res.status(404).send("Invalid credentials.");
+    }
+
+    const isPasswordMatch = await bcrypt.compare(
+      trimmedPassword,
+      user.password
+    );
+    if (!isPasswordMatch) {
+      return res.status(401).send("Invalid credentials.");
+    }
+
+    res.status(200).send("User logged in successfully");
+  } catch (err) {
+    res.status(500).send("Error logging in user: " + err.message);
   }
 });
 
