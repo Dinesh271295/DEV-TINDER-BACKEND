@@ -31,7 +31,7 @@
 - difference between app.use and app.all
 - write a dummy auth middleware for admin
 - write a dummy auth middleware for all routes except /user/login
-- error handling middleware
+- error handling middleware 
 
 
 18-09-2025:
