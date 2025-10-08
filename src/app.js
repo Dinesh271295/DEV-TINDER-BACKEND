@@ -5,6 +5,7 @@ const { User } = require("./models/user");
 const validator = require("validator");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+const { userAuth } = require("./middlewares/auth");
 
 const { validateSignupData } = require("./utils/validation");
 
@@ -72,24 +73,21 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get("/profile", async (req, res) => {
+app.get("/profile", userAuth, async (req, res) => {
   try {
-    const { token } = req.cookies;
-    // If no token is present, return an unauthorized error
-    if (!token) {
-      throw new Error("Unauthorized: No token provided");
-    }
-    // Verify the token
-    const decodedMessage = jwt.verify(token, "dev_tinder_secret_key");
-    const user = await User.findById(decodedMessage._id);
-    if (!user) {
-      throw new Error("User not found");
-    }
-    res.send(user);
+    res.send(req.user);
   } catch (err) {
     res.status(500).send("Error fetching profile: " + err.message);
   }
 });
+
+app.post("/sendConnectionRequest", userAuth, async (req, res) => {
+  try{
+    console.log("connection request sent to target Id");
+  }catch(err){
+    res.status(500).send("Error sending connection request: " + err.message);
+  }
+})
 
 app.get("/user", async (req, res) => {
   try {
