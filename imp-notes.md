@@ -91,5 +91,17 @@
 - write userAuth middleware
 - Add the userAuth middleware in profile API and new sendConnectionRequest API
 - set the expiry of JWT token and cookies to 7 days
+- create userSchema methods to getJWT.
+- create userSchema methods to validatePassword.
+
+12-10-2025:
+
+- Read documentation for express.Router
+- create routes folder for managing auth, profile, request routers
+- create authRouter, profileRouter, requestRouter
+- Import these routers in app.js
+
+
+
 
 
