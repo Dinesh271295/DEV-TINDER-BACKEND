@@ -1,5 +1,5 @@
 const express = require("express");
-const {validateSignupData} = require("../utils/validation");
+const { validateSignupData } = require("../utils/validation");
 const bcrypt = require("bcrypt");
 const { User } = require("../models/user");
 const validator = require("validator");
@@ -60,6 +60,13 @@ authRouter.post("/login", async (req, res) => {
   } catch (err) {
     res.status(500).send("Error logging in user: " + err.message);
   }
+});
+
+authRouter.post("/logout", (req, res) => {
+  // cleanup activities are done in this API
+  // clear the cookie
+  res.clearCookie("token");
+  res.status(200).send("User logged out successfully");
 });
 
 module.exports = { authRouter };

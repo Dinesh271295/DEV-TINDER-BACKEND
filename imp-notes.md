@@ -101,7 +101,12 @@
 - create authRouter, profileRouter, requestRouter
 - Import these routers in app.js
 
+13-10-2025:
 
+- create POST /logout API
+- create PATCH /profile/edit
+- create PATCH /profile/password API -- forgot password api.
+- make sure you validate all data in every POST, PATCH Apis.
 
 
 

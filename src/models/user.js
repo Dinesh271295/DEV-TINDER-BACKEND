@@ -82,6 +82,13 @@ const userSchema = new Schema(
     },
     skills: {
       type: [String],
+      validate: {
+        validator: (value) => {
+          if (!Array.isArray(value) || value.length > 10) {
+            throw new Error("Skills must be an array with maximum 10 skills");
+          }
+        },
+      },
     },
   },
   {
