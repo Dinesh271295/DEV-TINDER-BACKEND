@@ -54,13 +54,9 @@ const userSchema = new Schema(
     },
     gender: {
       type: String,
-      validate: {
-        validator: (value) => {
-          const allowedGenders = ["male", "female", "other"];
-          if (!allowedGenders.includes(value.toLowerCase())) {
-            throw new Error("gender is invalid!!");
-          }
-        },
+      enum: {
+        values: ["male", "female", "other"],
+        message: "gender is invalid!!",
       },
     },
     bio: {
