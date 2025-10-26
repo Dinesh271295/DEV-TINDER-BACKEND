@@ -19,7 +19,7 @@ requestRouter.post("/send/:status/:toUserId", userAuth, async (req, res) => {
     }
 
     //2. check if status is valid
-    const validStatuses = ["ignored", "interested", "accepted", "rejected"];
+    const validStatuses = ["ignored", "interested"];
     if (!validStatuses.includes(status)) {
       throw new Error(`Status can't be of type ${status} !!`);
     }
@@ -67,6 +67,42 @@ requestRouter.post("/send/:status/:toUserId", userAuth, async (req, res) => {
     res.status(500).json({
       message: "connection request is not sent!!",
       error: err.message,
+    });
+  }
+});
+
+requestRouter.post("/review/:status/:requestId", userAuth, async (req, res) => {
+  try {
+    const loggededInUser = req.user;
+    const { status, requestId } = req.params;
+
+    // check if status is valid
+    const validStatuses = ["accepted", "rejected"];
+    if (!validStatuses.includes(status)) {
+      throw new Error(`Status can't be of type ${status} !!`);
+    }
+
+    // find the connection request
+    const connectionRequest = await ConnectionRequest.findOne({
+      _id: requestId,
+      toUserId: loggededInUser._id,
+      status: "interested",
+    });
+
+    if (!connectionRequest) {
+      throw new Error("No pending connection request found !!");
+    }
+
+    // update the status
+    connectionRequest.status = status;
+    const updatedRequest = await connectionRequest.save();
+    res.status(200).json({
+      message: `Connection request ${status} successfully !!`,
+      data: updatedRequest,
+    });
+  } catch (err) {
+    res.status(400).send({
+      message: err.message,
     });
   }
 });

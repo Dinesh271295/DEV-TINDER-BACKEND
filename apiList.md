@@ -11,10 +11,9 @@
 - PATCH /profile/password
 
 ## connectionRequestRouter
-- POST /request/send/:status/:toUserId
+- POST /request/send/:status/:toUserId -- status can be ignored or interested
+- POST /request/review/:status/:requestId -- status can be rejected or accepted
 
-- POST /request/review/accepted/:requestId
-- POST /request/review/rejected/:requestId
 
 ## userRouter
 - GET /user/connections

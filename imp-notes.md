@@ -119,6 +119,15 @@
 - schema.pre("save") 
 - Read more about indexes in MongoDB
 
+26-10-2025:
+
+- create a review connection request API.
+- Thought process - POST vs GET
+- Read about ref and populate
+- create GET API for user/requests/received with all the checks
+- create GET API for user/connections
+
+
 
 
 
