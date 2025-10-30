@@ -127,6 +127,13 @@
 - create GET API for user/requests/received with all the checks
 - create GET API for user/connections
 
+29-10-2025:
+
+- create GET - feed API
+- Explore $nin or $ and other comarision operators
+
+
+
 
 
 
